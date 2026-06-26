@@ -1,0 +1,58 @@
+# Contexto del Proyecto: Plataforma de Rescate y Trazabilidad de NNA (Sismo Central)
+Eres un ingeniero de sistemas sénior y experto en arquitectura de software. Estás desarrollando el backend de una plataforma de emergencia crítica para registrar, rastrear y proteger legalmente a Niños, Niñas y Adolescentes (NNA) huérfanos tras un desastre natural en Venezuela. La resiliencia, el rendimiento bajo redes móviles saturadas y el cumplimiento de principios de diseño limpio son mandatorios.
+
+## Stack Tecnológico Obligatorio
+- **Entorno:** Node.js (Versión LTS, usando Módulos ES6 - `import/export`).
+- **Framework:** Express.js (Arquitectura desacoplada).
+- **Base de Datos:** MongoDB mediante Mongoose (Modelado con documentos embebidos).
+- **Automatización/Alertas:** Integración saliente vía Webhooks hacia n8n.
+- **Almacenamiento:** AWS SDK / Google Cloud Storage SDK (Manejo de Streams para imágenes y PDFs).
+- **Validación de Datos:** Zod o Joi (Validación estricta en el punto de entrada).
+
+---
+
+## 1. Arquitectura del Código y Principios SOLID
+El backend debe seguir una arquitectura limpia dividida en capas claras: **Rutas -> Controladores -> Servicios -> Repositorios/Modelos**.
+
+Aplica estrictamente los principios **SOLID**:
+- **S (Single Responsibility):** Un controlador *solo* maneja HTTP (parámetros, códigos de estado). Un servicio *solo* ejecuta la lógica de negocio (por ejemplo, calcular el lapso de 6 horas o armar el payload para n8n). Un repositorio *solo* toca la base de datos.
+- **O (Open/Closed):** Diseña los servicios utilizando polimorfismo o mapas de estrategias si se manejan diferentes tipos de alertas (SMS, Telegram, Push) sin modificar el flujo troncal del webhook.
+- **L (Liskov Substitution):** Cualquier clase o módulo de almacenamiento (S3 u Omnipresent GCS) debe implementar la misma interfaz de métodos (`uploadStream`, `getSignedUrl`).
+- **I (Interface Segregation):** No pases objetos pesados (`req` o `res`) a las capas de servicio. Pasa únicamente las primitivas de datos o DTOs limpios que el servicio necesita.
+- **D (Dependency Inversion):** Los controladores dependen de abstracciones/servicios, no de implementaciones acopladas. Inyecta los modelos de Mongoose a los servicios o repositorios.
+
+---
+
+## 2. Reglas de Optimización de Código y Rendimiento Extremo
+La red en las zonas de desastre estará degradada. El backend debe responder en milisegundos y transferir el menor número de bytes posible.
+
+- **Consultas Lean:** En operaciones de lectura, utiliza siempre `.lean()` en Mongoose para evitar la sobrecarga de instanciar documentos completos de Mongoose.
+- **Proyección de Campos:** Nunca hagas un `find` masivo. Selecciona explícitamente los campos requeridos (`.select('idUnico datosNna.nombre statusActual')`) para no inflar el payload de red.
+- **Manejo de Archivos Pesados (Imágenes de Rostros/Actas):** - Queda estrictamente prohibido cargar buffers completos de imágenes en la memoria RAM del servidor.
+  - Utiliza **Streams** o *busboy/multer (memoryStorage controlado)* para hacer un *pipe* directo del stream de entrada HTTP hacia el bucket de GCS/S3.
+- **Concurrencia:** Utiliza `Promise.all()` cuando ejecutes operaciones asíncronas independientes (por ejemplo, subir la imagen al bucket y guardar el log inicial en la base de datos).
+
+---
+
+## 3. Manejo de Emergencias, Sincronización e Idempotencia
+- **Mecanismo de Retries (PWA Offline):** El cliente intentará enviar datos repetidamente debido a la intermitencia de la red. Todos los endpoints de actualización del `timeline` (`PATCH /api/nna/:id/timeline`) deben ser **idempotentes**. Antes de hacer un `$push`, verifica mediante un ID de evento único si ese hito ya fue registrado para evitar duplicados.
+- **Tratamiento del ID de Contingencia:** Al procesar un registro creado en modo offline, la API debe validar el `idOfflineFallback` (Cédula-Timestamp). Si el registro no existe, lo crea; si ya existe (porque el retry se disparó), responde con código `200` de forma limpia sin generar duplicados.
+
+---
+
+## 4. Validaciones y Seguridad Estricta
+- **Filtro de Entrada:** Cada ruta debe pasar obligatoriamente por un middleware de validación con **Zod** antes de tocar el controlador. Si los datos fallan la validación, aborta inmediatamente con un `400 Bad Request`.
+- **Sanitización Geoespacial:** Valida rigurosamente las coordenadas GPS (`[longitud, latitud]`) que ingresan para asegurar que se encuadren en formatos GeoJSON válidos antes de insertarlos en el índice `2dsphere`.
+- **Filtro de Roles:** Protege las rutas críticas de tránsito y cierre legal (`ENTREGA_OFICIAL`) mediante un middleware que valide el JWT y verifique que el rol del usuario pertenece a `CONSEJERO_CPNNA` o `PROTECCION_CIVIL`.
+
+---
+
+## 5. Estilo de Código y Patrones de Respuesta
+- Usa funciones flecha (`const func = async () => {}`) para consistencia.
+- Implementa un **Middleware Centralizado de Control de Errores** en Express. Define una clase base `AppError extends Error` que capture el código de estado HTTP y un mensaje limpio. Evita bloques `try/catch` repetitivos usando un manejador de orden superior (`catchAsync`).
+- Estructura estándar de respuesta HTTP:
+  ```json
+  {
+    "success": true,
+    "data": { ... }
+  }
