@@ -47,8 +47,15 @@ jobs:
           echo "IMAGE_URI=${IMAGE_URI}" >> "${GITHUB_ENV}"
 
       - name: Render Cloud Run service
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
         run: |
-          sed "s|IMAGE_PLACEHOLDER|${IMAGE_URI}|g" "${SERVICE_YAML}" > /tmp/cloudrun-service.yaml
+          sed \
+            -e "s|IMAGE_PLACEHOLDER|${IMAGE_URI}|g" \
+            -e "s|MONGODB_URI_PLACEHOLDER|${MONGODB_URI}|g" \
+            -e "s|JWT_SECRET_PLACEHOLDER|${JWT_SECRET}|g" \
+            "${SERVICE_YAML}" > /tmp/cloudrun-service.yaml
 
       - name: Deploy Cloud Run service
         run: |

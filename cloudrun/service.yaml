@@ -22,6 +22,10 @@ spec:
           env:
             - name: NODE_ENV
               value: production
+            - name: MONGODB_URI
+              value: MONGODB_URI_PLACEHOLDER
+            - name: JWT_SECRET
+              value: JWT_SECRET_PLACEHOLDER
           resources:
             limits:
               cpu: "1"
