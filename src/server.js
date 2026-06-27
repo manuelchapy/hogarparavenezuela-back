@@ -3,14 +3,18 @@ import env from './config/env.js';
 import { connectDatabase } from './config/database.js';
 
 const startServer = async () => {
-  await connectDatabase();
-
-  app.listen(env.port, () => {
+  const server = app.listen(env.port, () => {
     console.log(`Servidor escuchando en http://localhost:${env.port}`);
   });
+
+  try {
+    await connectDatabase();
+    console.log('Base de datos conectada');
+  } catch (error) {
+    console.error('No se pudo conectar a la base de datos:', error.message);
+  }
+
+  return server;
 };
 
-startServer().catch((error) => {
-  console.error('No se pudo iniciar el servidor:', error);
-  process.exit(1);
-});
+startServer();
