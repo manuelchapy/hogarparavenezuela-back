@@ -2,13 +2,20 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const port = Number(process.env.PORT) || 4000;
+
 const env = {
-  port: Number(process.env.PORT) || 4000,
+  port,
   nodeEnv: process.env.NODE_ENV || 'development',
   mongodbUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/hogarparavenezuela',
   jwtSecret: process.env.JWT_SECRET || 'dev-secret-change-me',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '8h',
-  storageProvider: process.env.STORAGE_PROVIDER || 's3',
+  storageProvider: process.env.STORAGE_PROVIDER || 'local',
+  publicBaseUrl: process.env.PUBLIC_BASE_URL || `http://localhost:${port}`,
+  localStorage: {
+    path: process.env.LOCAL_STORAGE_PATH || './uploads',
+  },
+  imageWebpQuality: Math.min(100, Math.max(1, Number(process.env.IMAGE_WEBP_QUALITY) || 82)),
   aws: {
     region: process.env.AWS_REGION || 'us-east-1',
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,

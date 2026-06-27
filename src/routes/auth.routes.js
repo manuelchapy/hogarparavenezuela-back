@@ -12,6 +12,7 @@ import {
 } from '../validators/auth.validator.js';
 import { authController } from '../controllers/auth.controller.js';
 import { ROLES } from '../constants/index.js';
+import { uploadSingleArchivo } from '../middleware/upload.js';
 
 const router = Router();
 
@@ -25,6 +26,7 @@ router.get('/', (req, res) => {
         bootstrapAdmin: 'POST /api/auth/bootstrap-admin',
         register: 'POST /api/auth/register (solo ADMINISTRADOR)',
         login: 'POST /api/auth/login',
+        subirVerificacion: 'POST /api/auth/subir-verificacion',
         me: 'GET /api/auth/me',
         updateMe: 'PATCH /api/auth/me',
       },
@@ -39,6 +41,11 @@ router.post(
   catchAsync(authController.bootstrapAdmin),
 );
 router.post('/login', validate(loginSchema), catchAsync(authController.login));
+router.post(
+  '/subir-verificacion',
+  uploadSingleArchivo,
+  catchAsync(authController.uploadVerificacion),
+);
 
 router.post(
   '/register',

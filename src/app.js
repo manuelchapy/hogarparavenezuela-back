@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import path from 'node:path';
 import env from './config/env.js';
 import routes from './routes/index.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -18,6 +19,10 @@ app.use(
 );
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan(env.nodeEnv === 'production' ? 'combined' : 'dev'));
+
+if (env.storageProvider === 'local') {
+  app.use('/uploads', express.static(path.resolve(env.localStorage.path)));
+}
 
 app.use('/api', routes);
 

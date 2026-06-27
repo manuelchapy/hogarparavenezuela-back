@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { Readable } from 'node:stream';
 import { nnaService } from '../services/nna.service.js';
 import { storageService } from '../services/storage.service.js';
+import { prepareFileForUpload } from '../services/imageProcessing.service.js';
 import { getAuditContext } from '../utils/requestContext.js';
 
 export const nnaController = {
@@ -84,13 +85,13 @@ export const nnaController = {
       });
     }
 
-    const extension = file.originalname.split('.').pop() || 'jpg';
-    const key = `nna/previa/${req.user.cedula}-${randomUUID()}.${extension}`;
+    const prepared = await prepareFileForUpload(file);
+    const key = `nna/previa/${req.user.cedula}-${randomUUID()}.${prepared.extension}`;
 
     const uploaded = await storageService.uploadStream({
       key,
-      stream: Readable.from(file.buffer),
-      contentType: file.mimetype,
+      stream: Readable.from(prepared.buffer),
+      contentType: prepared.contentType,
     });
 
     res.status(201).json({
@@ -98,6 +99,8 @@ export const nnaController = {
       data: {
         fotoUrl: uploaded.url,
         storagePath: uploaded.storagePath,
+        contentType: prepared.contentType,
+        convertedToWebp: prepared.converted,
       },
       message: 'Usa fotoUrl al crear el registro NNA.',
     });
@@ -122,13 +125,13 @@ export const nnaController = {
       });
     }
 
-    const extension = file.originalname.split('.').pop() || 'bin';
-    const key = `nna/${nnaId}/${tipo.toLowerCase()}-${randomUUID()}.${extension}`;
+    const prepared = await prepareFileForUpload(file);
+    const key = `nna/${nnaId}/${tipo.toLowerCase()}-${randomUUID()}.${prepared.extension}`;
 
     const uploaded = await storageService.uploadStream({
       key,
-      stream: Readable.from(file.buffer),
-      contentType: file.mimetype,
+      stream: Readable.from(prepared.buffer),
+      contentType: prepared.contentType,
     });
 
     if (tipo === 'FOTO_ROSTRO') {
@@ -139,6 +142,8 @@ export const nnaController = {
         data: {
           fotoUrl: uploaded.url,
           storagePath: uploaded.storagePath,
+          contentType: prepared.contentType,
+          convertedToWebp: prepared.converted,
           nna,
         },
       });
@@ -151,6 +156,8 @@ export const nnaController = {
           tipo,
           url: uploaded.url,
           storagePath: uploaded.storagePath,
+          contentType: prepared.contentType,
+          convertedToWebp: prepared.converted,
         },
       },
       message: 'Usa scannedActaUrl al registrar el cierre legal.',

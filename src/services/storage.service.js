@@ -1,3 +1,7 @@
+import { createWriteStream } from 'node:fs';
+import { mkdir } from 'node:fs/promises';
+import path from 'node:path';
+import { pipeline } from 'node:stream/promises';
 import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Storage } from '@google-cloud/storage';
@@ -91,9 +95,33 @@ const gcsStorage = {
   },
 };
 
+const localStorage = {
+  uploadStream: async ({ key, stream, contentType }) => {
+    const rootDir = path.resolve(env.localStorage.path);
+    const filePath = path.join(rootDir, key);
+
+    await mkdir(path.dirname(filePath), { recursive: true });
+    await pipeline(stream, createWriteStream(filePath));
+
+    const publicKey = key.replace(/\\/g, '/');
+
+    return {
+      storagePath: key,
+      url: `${env.publicBaseUrl}/uploads/${publicKey}`,
+      contentType,
+    };
+  },
+
+  getSignedUrl: async ({ key }) => {
+    const publicKey = key.replace(/\\/g, '/');
+    return `${env.publicBaseUrl}/uploads/${publicKey}`;
+  },
+};
+
 const providers = {
   s3: s3Storage,
   gcs: gcsStorage,
+  local: localStorage,
 };
 
 export const getStorageProvider = () => {
