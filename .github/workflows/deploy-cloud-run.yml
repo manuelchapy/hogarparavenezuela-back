@@ -1,0 +1,56 @@
+name: Deploy Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  PROJECT_ID: ${{ vars.GCP_PROJECT_ID || 'hogarparavenezuela' }}
+  REGION: ${{ vars.GCP_REGION || 'us-central1' }}
+  SERVICE_NAME: ${{ vars.CLOUD_RUN_SERVICE || 'hogarparavenezuela-back' }}
+  GAR_REPOSITORY: ${{ vars.GAR_REPOSITORY || 'cloud-run' }}
+  IMAGE_NAME: ${{ vars.IMAGE_NAME || 'hogarparavenezuela-back' }}
+  SERVICE_YAML: cloudrun/service.yaml
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+
+      - name: Build and push image
+        run: |
+          IMAGE_URI="${REGION}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPOSITORY}/${IMAGE_NAME}:${GITHUB_SHA}"
+          docker build --tag "${IMAGE_URI}" .
+          docker push "${IMAGE_URI}"
+          echo "IMAGE_URI=${IMAGE_URI}" >> "${GITHUB_ENV}"
+
+      - name: Render Cloud Run service
+        run: |
+          sed "s|IMAGE_PLACEHOLDER|${IMAGE_URI}|g" "${SERVICE_YAML}" > /tmp/cloudrun-service.yaml
+
+      - name: Deploy Cloud Run service
+        run: |
+          gcloud run services replace /tmp/cloudrun-service.yaml --region "${REGION}"
+          gcloud run services update-traffic "${SERVICE_NAME}" --region "${REGION}" --to-latest
