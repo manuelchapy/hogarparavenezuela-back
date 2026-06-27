@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import env from './env.js';
 
+mongoose.set('bufferCommands', false);
+
 export const connectDatabase = async () => {
   await mongoose.connect(env.mongodbUri, {
     serverSelectionTimeoutMS: 10000,
