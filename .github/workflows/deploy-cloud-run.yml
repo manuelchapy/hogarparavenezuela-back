@@ -61,3 +61,7 @@ jobs:
         run: |
           gcloud run services replace /tmp/cloudrun-service.yaml --region "${REGION}"
           gcloud run services update-traffic "${SERVICE_NAME}" --region "${REGION}" --to-latest
+          gcloud run services add-iam-policy-binding "${SERVICE_NAME}" \
+            --region "${REGION}" \
+            --member="allUsers" \
+            --role="roles/run.invoker"
