@@ -1,0 +1,1448 @@
+<!DOCTYPE html><html><head>
+<title>ERS - Requerimientos de Captura de Datos (Consolidado).md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*
+
+Arduino® Light Theme - Stefania Mellai <s.mellai@arduino.cc>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #FFFFFF;
+}
+
+.hljs,
+.hljs-subst {
+  color: #434f54;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-doctag,
+.hljs-name {
+  color: #00979D;
+}
+
+.hljs-built_in,
+.hljs-literal,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #D35400;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #00979D;
+}
+
+.hljs-type,
+.hljs-string,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #005C5F;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-comment {
+  color: rgba(149,165,166,.8);
+}
+
+.hljs-meta-keyword {
+  color: #728E00;
+}
+
+.hljs-meta {
+  color: #434f54;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-function {
+  color: #728E00;
+}
+
+.hljs-number {
+  color: #8A7B52;  
+}
+
+</style>
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family:   "HelveticaNeue-Light", sans-serif, "宋体","Segoe WPC", "Segoe UI", "SFUIText-Light","Droid Sans Fallback";
+	font-size: 18px;
+	padding: 0 12px;
+	line-height: 1.6;
+	word-wrap: break-word;
+	color: #333333;
+}
+
+.content-wrapper{
+	max-width: 860px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom: 1px solid #eee;
+}
+
+
+h2{
+	padding-bottom: .3em;
+    font-size: 2em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+h3{
+	font-size: 1.75em;
+    line-height: 1.225;
+}
+
+h1, h2, h3 {
+	font-weight: bold;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+.table-of-contents li{
+	list-style-type: initial;
+}
+</style>
+
+<style>
+@font-face{font-display:block;font-family:KaTeX_AMS;font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_AMS-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_AMS-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_AMS-Regular.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Caligraphic;font-style:normal;font-weight:700;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Caligraphic-Bold.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Caligraphic-Bold.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Caligraphic-Bold.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Caligraphic;font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Caligraphic-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Caligraphic-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Caligraphic-Regular.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Fraktur;font-style:normal;font-weight:700;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Fraktur-Bold.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Fraktur-Bold.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Fraktur-Bold.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Fraktur;font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Fraktur-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Fraktur-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Fraktur-Regular.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:normal;font-weight:700;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-Bold.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-Bold.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-Bold.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:italic;font-weight:700;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-BoldItalic.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-BoldItalic.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-BoldItalic.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:italic;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-Italic.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-Italic.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-Italic.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Main;font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Main-Regular.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Math;font-style:italic;font-weight:700;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Math-BoldItalic.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Math-BoldItalic.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Math-BoldItalic.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Math;font-style:italic;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Math-Italic.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Math-Italic.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Math-Italic.ttf") format("truetype")}@font-face{font-display:block;font-family:"KaTeX_SansSerif";font-style:normal;font-weight:700;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_SansSerif-Bold.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_SansSerif-Bold.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_SansSerif-Bold.ttf") format("truetype")}@font-face{font-display:block;font-family:"KaTeX_SansSerif";font-style:italic;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_SansSerif-Italic.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_SansSerif-Italic.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_SansSerif-Italic.ttf") format("truetype")}@font-face{font-display:block;font-family:"KaTeX_SansSerif";font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_SansSerif-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_SansSerif-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_SansSerif-Regular.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Script;font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Script-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Script-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Script-Regular.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size1;font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size1-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size1-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size1-Regular.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size2;font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size2-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size2-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size2-Regular.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size3;font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size3-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size3-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size3-Regular.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Size4;font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size4-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size4-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Size4-Regular.ttf") format("truetype")}@font-face{font-display:block;font-family:KaTeX_Typewriter;font-style:normal;font-weight:400;src:url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Typewriter-Regular.woff2") format("woff2"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Typewriter-Regular.woff") format("woff"),url("https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/fonts/KaTeX_Typewriter-Regular.ttf") format("truetype")}.katex{font:normal 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;position:relative;text-indent:0;text-rendering:auto}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-version:after{content:"0.16.47"}.katex .katex-mathml{border:0;-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;overflow:hidden;padding:0;position:absolute;width:1px}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:-webkit-min-content;width:-moz-min-content;width:min-content}.katex .base,.katex .strut{display:inline-block}.katex .textbf{font-weight:700}.katex .textit{font-style:italic}.katex .textrm{font-family:KaTeX_Main}.katex .textsf{font-family:KaTeX_SansSerif}.katex .texttt{font-family:KaTeX_Typewriter}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .boldsymbol{font-family:KaTeX_Math;font-style:italic;font-weight:700}.katex .amsrm,.katex .mathbb,.katex .textbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak,.katex .textfrak{font-family:KaTeX_Fraktur}.katex .mathboldfrak,.katex .textboldfrak{font-family:KaTeX_Fraktur;font-weight:700}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr,.katex .textscr{font-family:KaTeX_Script}.katex .mathsf,.katex .textsf{font-family:KaTeX_SansSerif}.katex .mathboldsf,.katex .textboldsf{font-family:KaTeX_SansSerif;font-weight:700}.katex .mathitsf,.katex .mathsfit,.katex .textitsf{font-family:KaTeX_SansSerif;font-style:italic}.katex .mainrm{font-family:KaTeX_Main;font-style:normal}.katex .vlist-t{border-collapse:collapse;display:inline-table;table-layout:fixed}.katex .vlist-r{display:table-row}.katex .vlist{display:table-cell;position:relative;vertical-align:bottom}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist>span>.pstrut{overflow:hidden;width:0}.katex .vlist-t2{margin-right:-2px}.katex .vlist-s{display:table-cell;font-size:1px;min-width:2px;vertical-align:bottom;width:2px}.katex .vbox{align-items:baseline;display:inline-flex;flex-direction:column}.katex .hbox{width:100%}.katex .hbox,.katex .thinbox{display:inline-flex;flex-direction:row}.katex .thinbox{max-width:0;width:0}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline,.katex .hline,.katex .mfrac .frac-line,.katex .overline .overline-line,.katex .rule,.katex .underline .underline-line{min-height:1px}.katex .mspace{display:inline-block}.katex .smash{display:inline;line-height:0}.katex .clap,.katex .llap,.katex .rlap{position:relative;width:0}.katex .clap>.inner,.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .clap>.fix,.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .clap>.inner,.katex .rlap>.inner{left:0}.katex .clap>.inner>span{margin-left:-50%;margin-right:50%}.katex .rule{border:0 solid;display:inline-block;position:relative}.katex .hline,.katex .overline .overline-line,.katex .underline .underline-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline{border-bottom-style:dashed;display:inline-block;width:100%}.katex .sqrt>.root{margin-left:.2777777778em;margin-right:-.5555555556em}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.2em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:3.456em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.148em}.katex .fontsize-ensurer.reset-size1.size11,.katex .sizing.reset-size1.size11{font-size:4.976em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.1666666667em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.3333333333em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.5em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.6666666667em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.4em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.88em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.4566666667em}.katex .fontsize-ensurer.reset-size2.size11,.katex .sizing.reset-size2.size11{font-size:4.1466666667em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.7142857143em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.8571428571em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.1428571429em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.2857142857em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.4285714286em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.7142857143em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.0571428571em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.4685714286em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:2.9628571429em}.katex .fontsize-ensurer.reset-size3.size11,.katex .sizing.reset-size3.size11{font-size:3.5542857143em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.75em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.875em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.125em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.25em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.5em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.8em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.16em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.5925em}.katex .fontsize-ensurer.reset-size4.size11,.katex .sizing.reset-size4.size11{font-size:3.11em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.5555555556em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.6666666667em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.7777777778em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.8888888889em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.1111111111em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.3333333333em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.6em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:1.92em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.3044444444em}.katex .fontsize-ensurer.reset-size5.size11,.katex .sizing.reset-size5.size11{font-size:2.7644444444em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.6em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.7em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.8em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.9em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.728em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.074em}.katex .fontsize-ensurer.reset-size6.size11,.katex .sizing.reset-size6.size11{font-size:2.488em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.4166666667em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.5em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.5833333333em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.6666666667em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.75em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.2em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.44em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.7283333333em}.katex .fontsize-ensurer.reset-size7.size11,.katex .sizing.reset-size7.size11{font-size:2.0733333333em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.3472222222em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.4166666667em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.4861111111em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.5555555556em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.625em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.6944444444em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.2em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.4402777778em}.katex .fontsize-ensurer.reset-size8.size11,.katex .sizing.reset-size8.size11{font-size:1.7277777778em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.2893518519em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.3472222222em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.4050925926em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.462962963em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.5208333333em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.5787037037em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.6944444444em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.8333333333em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.2002314815em}.katex .fontsize-ensurer.reset-size9.size11,.katex .sizing.reset-size9.size11{font-size:1.4398148148em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.2410800386em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.2892960463em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.337512054em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.3857280617em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.4339440694em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.4821600771em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.5785920926em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.6943105111em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.8331726133em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .fontsize-ensurer.reset-size10.size11,.katex .sizing.reset-size10.size11{font-size:1.1996142719em}.katex .fontsize-ensurer.reset-size11.size1,.katex .sizing.reset-size11.size1{font-size:.2009646302em}.katex .fontsize-ensurer.reset-size11.size2,.katex .sizing.reset-size11.size2{font-size:.2411575563em}.katex .fontsize-ensurer.reset-size11.size3,.katex .sizing.reset-size11.size3{font-size:.2813504823em}.katex .fontsize-ensurer.reset-size11.size4,.katex .sizing.reset-size11.size4{font-size:.3215434084em}.katex .fontsize-ensurer.reset-size11.size5,.katex .sizing.reset-size11.size5{font-size:.3617363344em}.katex .fontsize-ensurer.reset-size11.size6,.katex .sizing.reset-size11.size6{font-size:.4019292605em}.katex .fontsize-ensurer.reset-size11.size7,.katex .sizing.reset-size11.size7{font-size:.4823151125em}.katex .fontsize-ensurer.reset-size11.size8,.katex .sizing.reset-size11.size8{font-size:.578778135em}.katex .fontsize-ensurer.reset-size11.size9,.katex .sizing.reset-size11.size9{font-size:.6945337621em}.katex .fontsize-ensurer.reset-size11.size10,.katex .sizing.reset-size11.size10{font-size:.8336012862em}.katex .fontsize-ensurer.reset-size11.size11,.katex .sizing.reset-size11.size11{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .delimcenter,.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist-t,.katex .op-limits>.vlist-t{text-align:center}.katex .accent .accent-body{position:relative}.katex .accent .accent-body:not(.accent-full){width:0}.katex .overlay{display:block}.katex .mtable .vertical-separator{display:inline-block;min-width:1px}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist-t{text-align:center}.katex .mtable .col-align-l>.vlist-t{text-align:left}.katex .mtable .col-align-r>.vlist-t{text-align:right}.katex .svg-align{text-align:left}.katex svg{fill:currentColor;stroke:currentColor;display:block;height:inherit;position:absolute;width:100%}.katex svg path{stroke:none}.katex svg{fill-rule:nonzero;fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1}.katex img{border-style:none;max-height:none;max-width:none;min-height:0;min-width:0}.katex .stretchy{display:block;overflow:hidden;position:relative;width:100%}.katex .stretchy:after,.katex .stretchy:before{content:""}.katex .hide-tail{overflow:hidden;position:relative;width:100%}.katex .halfarrow-left{left:0;overflow:hidden;position:absolute;width:50.2%}.katex .halfarrow-right{overflow:hidden;position:absolute;right:0;width:50.2%}.katex .brace-left{left:0;overflow:hidden;position:absolute;width:25.1%}.katex .brace-center{left:25%;overflow:hidden;position:absolute;width:50%}.katex .brace-right{overflow:hidden;position:absolute;right:0;width:25.1%}.katex .x-arrow-pad{padding:0 .5em}.katex .cd-arrow-pad{padding:0 .55556em 0 .27778em}.katex .mover,.katex .munder,.katex .x-arrow{text-align:center}.katex .boxpad{padding:0 .3em}.katex .fbox,.katex .fcolorbox{border:.04em solid;box-sizing:border-box}.katex .cancel-pad{padding:0 .2em}.katex .cancel-lap{margin-left:-.2em;margin-right:-.2em}.katex .sout{border-bottom-style:solid;border-bottom-width:.08em}.katex .angl{border-right:.049em solid;border-top:.049em solid;box-sizing:border-box;margin-right:.03889em}.katex .anglpad{padding:0 .03889em}.katex .eqn-num:before{content:"(" counter(katexEqnNo) ")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"(" counter(mmlEqnNo) ")";counter-increment:mmlEqnNo}.katex .mtr-glue{width:50%}.katex .cd-vert-arrow{display:inline-block;position:relative}.katex .cd-label-left{display:inline-block;position:absolute;right:calc(50% + .3em);text-align:left}.katex .cd-label-right{display:inline-block;left:calc(50% + .3em);position:absolute;text-align:right}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;text-align:center;white-space:nowrap}.katex-display>.katex>.katex-html{display:block;position:relative}.katex-display>.katex>.katex-html>.tag{position:absolute;right:0}.katex-display.leqno>.katex>.katex-html>.tag{left:0;right:auto}.katex-display.fleqn>.katex{padding-left:2em;text-align:left}body{counter-reset:katexEqnNo mmlEqnNo}
+
+</style>
+
+</head>
+<body>
+    <div class="content-wrapper">
+        <h1 id="especificaci%C3%B3n-de-requerimientos-de-software-(ers)" tabindex="-1">ESPECIFICACIÓN DE REQUERIMIENTOS DE SOFTWARE (ERS)</h1>
+<h2 id="plataforma-de-cadena-de-custodia-digital-para-nna-%E2%80%94-m%C3%B3dulo-de-captura-de-datos" tabindex="-1">Plataforma de Cadena de Custodia Digital para NNA — Módulo de Captura de Datos</h2>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Documento</strong></td>
+<td>Requerimientos detallados de captura de datos</td>
+</tr>
+<tr>
+<td><strong>Versión</strong></td>
+<td>1.0 (Consolidado a partir de Especificaciones V3.0)</td>
+</tr>
+<tr>
+<td><strong>Fecha</strong></td>
+<td>27/06/2026</td>
+</tr>
+<tr>
+<td><strong>Marco legal rector</strong></td>
+<td>LOPNNA (Ley Orgánica para la Protección de Niños, Niñas y Adolescentes)</td>
+</tr>
+<tr>
+<td><strong>Ámbito</strong></td>
+<td>Trazabilidad de NNA rescatados en desastres sísmicos — registro, custodia, abrigo, seguimiento, escalamiento judicial y reunificación</td>
+</tr>
+<tr>
+<td><strong>Estándar de referencia</strong></td>
+<td>IEEE 830 / ISO-IEC-IEEE 29148</td>
+</tr>
+<tr>
+<td><strong>Autores</strong></td>
+<td>Jose Carlos Chacon, Luis Eduardo Chacon, Alexander Moreno</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="1.-introducci%C3%B3n" tabindex="-1">1. INTRODUCCIÓN</h2>
+<h3 id="1.1.-prop%C3%B3sito" tabindex="-1">1.1. Propósito</h3>
+<p>Este documento especifica, de forma detallada y verificable, los requerimientos de <strong>captura de datos</strong> de la plataforma. Define para cada formulario: campos, tipos de dato, reglas de validación, reglas de negocio, controles legales y comportamiento de interfaz. Sirve de contrato funcional entre las áreas legal/operativa y el equipo de desarrollo.</p>
+<h3 id="1.2.-alcance" tabindex="-1">1.2. Alcance</h3>
+<p>El módulo cubre el ciclo de vida completo (lifecycle) del expediente digital de un NNA, desde el <strong>hallazgo en zona cero</strong> hasta el <strong>cierre del caso</strong> (reunificación, colocación o adopción), a través de seis (6) formularios encadenados que conectan a Rescatistas, CPNNA, Entidades de Atención, Jueces y la familia de origen.</p>
+<h3 id="1.3.-definiciones-clave" tabindex="-1">1.3. Definiciones clave</h3>
+<ul>
+<li><strong>NNA:</strong> Niño, Niña o Adolescente.</li>
+<li><strong>CPNNA:</strong> Consejo de Protección de Niños, Niñas y Adolescentes. Único órgano administrativo facultado para recibir al NNA y asumir tutela del Estado.</li>
+<li><strong>Expediente:</strong> Conjunto inmutable de registros vinculados por una llave única (<code>ID_Registro</code>).</li>
+<li><strong>Documento Público:</strong> Carácter legal de los datos capturados; su alteración u omisión constituye delito de <strong>Falsedad Ideológica</strong>.</li>
+<li><strong>Medida de Abrigo:</strong> Medida administrativa transitoria, máximo <strong>30 días</strong>, antes de intervención judicial obligatoria.</li>
+</ul>
+<h3 id="1.4.-principios-t%C3%A9cnico-legales-transversales-(aplican-a-todos-los-formularios)" tabindex="-1">1.4. Principios técnico-legales transversales (aplican a TODOS los formularios)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Principio</th>
+<th>Requerimiento técnico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P-01</td>
+<td><strong>Inmutabilidad del GPS</strong></td>
+<td>Coordenadas capturadas en<em>background</em>; bloqueo absoluto de edición manual (carácter de Documento Público).</td>
+</tr>
+<tr>
+<td>P-02</td>
+<td><strong>Encriptación de fotografías</strong></td>
+<td>Almacenamiento en BD encriptada con llaves asimétricas (Art. 65 y 227 LOPNNA). La foto<strong>nunca</strong> se imprime en brazalete, ni se muestra en pantalla de confirmación del rescatista.</td>
+</tr>
+<tr>
+<td>P-03</td>
+<td><strong>Cero borrado</strong></td>
+<td><code>DELETE = FALSE</code> para todos los roles. Registro inmutable.</td>
+</tr>
+<tr>
+<td>P-04</td>
+<td><strong>Bloqueo de edición</strong></td>
+<td>Formulario 1 pasa a sólo-lectura al firmarse el Formulario 2. Correcciones posteriores sólo vía "Nota al Expediente" con pista de auditoría.</td>
+</tr>
+<tr>
+<td>P-05</td>
+<td><strong>Pista de auditoría</strong></td>
+<td>Toda operación de escritura registra quién, cuándo, qué y por qué (audit trail inalterable).</td>
+</tr>
+<tr>
+<td>P-06</td>
+<td><strong>Prohibición de traslados particulares</strong></td>
+<td>El sistema bloquea cualquier ruta de custodia hacia residencias particulares o fundaciones no certificadas (sustracción de menores).</td>
+</tr>
+<tr>
+<td>P-07</td>
+<td><strong>Ceguera de datos para TI</strong></td>
+<td>El Administrador no puede visualizar nombres, fotos, edades ni GPS de NNA (Zero-Trust de datos sensibles).</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2.-modelo-de-estados-del-expediente-(status-maestro)" tabindex="-1">2. MODELO DE ESTADOS DEL EXPEDIENTE (Status Maestro)</h2>
+<div class="mermaid">stateDiagram-v2
+    [*] --&gt; Encontrado : Form 1 guardado
+    Encontrado --&gt; EnTransito : Brazalete impreso (QR)
+    EnTransito --&gt; AutoridadNotificada : Reporte &lt; 6h
+    AutoridadNotificada --&gt; BajoProteccionEstado : Form 2 firmado
+    BajoProteccionEstado --&gt; EnEntidadAbrigo : Form 3 (Medida de Abrigo)
+    EnEntidadAbrigo --&gt; EnEvaluacion : Form 4 (Seguimiento)
+    EnEvaluacion --&gt; EnEvaluacion : Nuevos informes
+    EnEvaluacion --&gt; AOrdenTribunal : Form 5 (escala a los 30 días)
+    EnEvaluacion --&gt; CasoCerrado : Form 6 (reunificación administrativa)
+    AOrdenTribunal --&gt; CasoCerrado : Form 6 (sentencia judicial)
+    CasoCerrado --&gt; [*] : Archivo inmutable</div><p><img src="image/ERS-RequerimientosdeCapturadeDatos(Consolidado)/1782605750390.png" alt="1782605750390"></p>
+<h2 id="3.-especificaci%C3%B3n-detallada-por-formulario" tabindex="-1">3. ESPECIFICACIÓN DETALLADA POR FORMULARIO</h2>
+<h3 id="convenciones-de-la-especificaci%C3%B3n" tabindex="-1">Convenciones de la especificación</h3>
+<ul>
+<li><strong>Tipo:</strong> tipo de dato técnico.</li>
+<li><strong>Oblig.:</strong> R = Requerido · O = Opcional · C = Condicional · A = Autogenerado.</li>
+<li><strong>Edit.:</strong> indica editabilidad tras guardado.</li>
+</ul>
+<hr>
+<h3 id="3.1.-formulario-1-%E2%80%94-ficha-de-registro-de-hallazgo" tabindex="-1">3.1. FORMULARIO 1 — Ficha de Registro de Hallazgo</h3>
+<p><strong>Interfaz:</strong> Móvil (PWA/App offline-capable) · <strong>Actor:</strong> Rescatista / Voluntario · <strong>Punto de entrada del NNA al sistema.</strong></p>
+<h4 id="bloque-1.1-%E2%80%94-sistema-y-geolocalizaci%C3%B3n-(autogenerado-%C2%B7-no-editable)" tabindex="-1">Bloque 1.1 — Sistema y Geolocalización (Autogenerado · No editable)</h4>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Oblig.</th>
+<th>Validación / Regla de negocio</th>
+<th>Edit.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_Registro</code></td>
+<td>String</td>
+<td>A/R</td>
+<td>Formato<code>[ESTADO]-[MUNICIPIO]-[FECHA]-[NÚMERO]</code> (ej. <code>DC-CCS-260626-001</code>). Llave primaria única e irrepetible.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>Timestamp_Creacion</code></td>
+<td>Datetime</td>
+<td>A/R</td>
+<td>Sello automático del servidor.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>GPS_Coordenadas_Hallazgo</code></td>
+<td>Geolocation (Lat/Lon)</td>
+<td>A/R</td>
+<td>Captura automática en background.<strong>Inmutable</strong> tras guardar (P-01).</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bloque-1.2-%E2%80%94-datos-del-rescatista-o-interviniente" tabindex="-1">Bloque 1.2 — Datos del Rescatista o Interviniente</h4>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Oblig.</th>
+<th>Validación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Nombre_Rescatista</code></td>
+<td>String</td>
+<td>R</td>
+<td>No vacío.</td>
+</tr>
+<tr>
+<td><code>Cedula_Rescatista</code></td>
+<td>Alfanumérico (V-/E-)</td>
+<td>R</td>
+<td>Prefijo válido<code>V-</code>/<code>E-</code> + dígitos.</td>
+</tr>
+<tr>
+<td><code>Telefono_Contacto</code></td>
+<td>Numérico</td>
+<td>R</td>
+<td>Formato telefónico válido.</td>
+</tr>
+<tr>
+<td><code>Institucion_Organizacion</code></td>
+<td>String</td>
+<td>R</td>
+<td>No vacío.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bloque-1.3-%E2%80%94-datos-del-nna-hallado" tabindex="-1">Bloque 1.3 — Datos del NNA Hallado</h4>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Oblig.</th>
+<th>Validación / Regla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Fecha_Hora_Hallazgo</code></td>
+<td>Datetime</td>
+<td>R</td>
+<td>No futura.</td>
+</tr>
+<tr>
+<td><code>Lugar_Exacto_Hallazgo_Texto</code></td>
+<td>Text Area</td>
+<td>R</td>
+<td>Referencia física complementaria al GPS.</td>
+</tr>
+<tr>
+<td><code>Fotografia_NNA_Confidencial</code></td>
+<td>File/Image</td>
+<td>O</td>
+<td>Encriptación inmediata (P-02). UI muestra advertencia legal:<em>"Uso estrictamente confidencial para reunificación familiar por el CPNNA. Prohibida su difusión externa (Art. 65 LOPNNA)"</em>.</td>
+</tr>
+<tr>
+<td><code>Nombre_NNA</code></td>
+<td>String</td>
+<td>O</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>Edad_Aparente</code></td>
+<td>Enum</td>
+<td>R</td>
+<td>{Lactante, Preescolar, Escolar, Adolescente}.</td>
+</tr>
+<tr>
+<td><code>Edad_Declarada_por_NNA</code></td>
+<td>Numérico</td>
+<td>O</td>
+<td>Rango 0–17.</td>
+</tr>
+<tr>
+<td><code>Sexo</code></td>
+<td>Enum</td>
+<td>R</td>
+<td>{F, M}.</td>
+</tr>
+<tr>
+<td><code>Estado_Salud</code></td>
+<td>Enum</td>
+<td>R</td>
+<td>{Estable, Requiere atención médica urgente, Con lesiones visibles}.</td>
+</tr>
+<tr>
+<td><code>Rasgos_Identificativos</code></td>
+<td>Text Area</td>
+<td>R</td>
+<td>Señas particulares / condición física.</td>
+</tr>
+<tr>
+<td><code>Validacion_Art80</code></td>
+<td>Boolean</td>
+<td>R</td>
+<td>Pregunta:<em>"¿Fue escuchado? (Art. 80 LOPNNA)"</em>.</td>
+</tr>
+<tr>
+<td><code>Observaciones_del_NNA</code></td>
+<td>Text Area</td>
+<td>C</td>
+<td><strong>Requerido si</strong> <code>Validacion_Art80 = Sí</code>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="acci%C3%B3n-de-cierre-f1-%E2%80%94-generaci%C3%B3n-de-c%C3%B3digo-de-brazalete" tabindex="-1">Acción de cierre F1 — Generación de código de brazalete</h4>
+<ul>
+<li>Al guardar, genera vista en <strong>texto plano de alto contraste</strong> que contiene <strong>únicamente</strong>: <code>ID_Registro</code>, <code>Nombre_Rescatista</code>, <code>Telefono_Contacto</code> (transcripción manual al brazalete físico).</li>
+<li>Genera <strong>brazalete imprimible</strong> con Código QR que enlaza a la ficha completa.</li>
+<li><strong>La fotografía y el GPS se ocultan automáticamente</strong> tras el guardado (P-02).</li>
+<li><strong>Trigger de estado:</strong> <code>Encontrado</code> → <code>En Tránsito</code>. Se habilita el reporte a la autoridad (SLA &lt; 6 horas).</li>
+</ul>
+<hr>
+<h3 id="3.2.-formulario-2-%E2%80%94-acta-de-entrega-provisional" tabindex="-1">3.2. FORMULARIO 2 — Acta de Entrega Provisional</h3>
+<p><strong>Interfaz:</strong> Web/Tablet · <strong>Actor:</strong> Funcionario CPNNA (co-firma Rescatista + Testigo) · <strong>Traspaso de custodia al Estado.</strong></p>
+<h4 id="bloque-2.1-%E2%80%94-b%C3%BAsqueda%2C-validaci%C3%B3n-y-contexto" tabindex="-1">Bloque 2.1 — Búsqueda, Validación y Contexto</h4>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Oblig.</th>
+<th>Validación / Regla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Buscador_Expediente</code></td>
+<td>Input Search (<code>ID_Registro</code>)</td>
+<td>R</td>
+<td>Auto-pobla datos del Form 1 (sólo lectura). La foto sólo se desencripta si el rol es<code>CPNNA_Oficial</code>.</td>
+</tr>
+<tr>
+<td><code>Ciudad_Entrega</code></td>
+<td>String</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>Estado_Entrega</code></td>
+<td>String</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>Lugar_Actuacion</code> (Sede)</td>
+<td>String</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>GPS_Coordenadas_Entrega</code></td>
+<td>Geolocation</td>
+<td>A/R</td>
+<td>Captura automática. Punto exacto donde el Estado asume tutela. Inmutable.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bloque-2.2-%E2%80%94-autoridad-que-recibe-(exclusivo-cpnna)" tabindex="-1">Bloque 2.2 — Autoridad que Recibe (Exclusivo CPNNA)</h4>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Oblig.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Municipio_CPNNA</code></td>
+<td>String</td>
+<td>R</td>
+</tr>
+<tr>
+<td><code>Funcionario_Receptor</code></td>
+<td>String</td>
+<td>R</td>
+</tr>
+<tr>
+<td><code>Cedula_Funcionario</code></td>
+<td>Alfanumérico</td>
+<td>R</td>
+</tr>
+<tr>
+<td><code>Cargo</code></td>
+<td>String</td>
+<td>R</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bloque-2.3-%E2%80%94-cierre%2C-legalidad-y-firmas" tabindex="-1">Bloque 2.3 — Cierre, Legalidad y Firmas</h4>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Oblig.</th>
+<th>Regla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Fundamentacion_Legal</code></td>
+<td>Texto estático autogenerado</td>
+<td>A</td>
+<td>Inyecta Arts. 15, 16, 126, 158, 160, 401 LOPNNA + advertencia penal por Falsedad Ideológica.</td>
+</tr>
+<tr>
+<td><code>Firma_Huella_Rescatista</code></td>
+<td>Canvas/Biométrico</td>
+<td>R</td>
+<td>Etiqueta:<em>"Entregué Conforme"</em>.</td>
+</tr>
+<tr>
+<td><code>Firma_Huella_Sello_CPNNA</code></td>
+<td>Canvas/Biométrico</td>
+<td>R</td>
+<td>Etiqueta:<em>"Recibí Conforme (CPNNA)"</em>.</td>
+</tr>
+<tr>
+<td><code>Datos_y_Firma_Testigo</code></td>
+<td>String + Canvas</td>
+<td>R</td>
+<td>Identificación + firma del testigo.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="acci%C3%B3n-de-cierre-f2-%E2%80%94-generaci%C3%B3n-de-pdf-legal" tabindex="-1">Acción de cierre F2 — Generación de PDF legal</h4>
+<ul>
+<li>Genera PDF "Acta de Entrega Provisional" uniendo datos de Form 1 + Form 2.</li>
+<li><strong>Condición crítica:</strong> el PDF <strong>NO</strong> incluye la fotografía del NNA, salvo botón de anulación con orden judicial (Art. 227 LOPNNA).</li>
+<li><strong>Bloqueo:</strong> Form 1 pasa a <strong>sólo-lectura</strong> (P-04). El rescatista <strong>pierde acceso total</strong> al expediente; conserva sólo el PDF (sin foto).</li>
+<li><strong>Trigger de estado:</strong> → <code>Bajo Protección del Estado</code>.</li>
+</ul>
+<hr>
+<h3 id="3.3.-formulario-3-%E2%80%94-resoluci%C3%B3n-de-medida-de-abrigo" tabindex="-1">3.3. FORMULARIO 3 — Resolución de Medida de Abrigo</h3>
+<p><strong>Interfaz:</strong> Web · <strong>Escritura:</strong> Funcionario CPNNA · <strong>Lectura:</strong> CPNNA, Entidad de Atención receptora, Juez · <strong>Asignación a Entidad de Atención.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Oblig.</th>
+<th>Validación / Regla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Buscador_Expediente</code></td>
+<td>Input (<code>ID_Registro</code>)</td>
+<td>R</td>
+<td>Auto-pobla datos.</td>
+</tr>
+<tr>
+<td><code>Entidad_de_Atencion_Asignada</code></td>
+<td>Dropdown</td>
+<td>R</td>
+<td>Alimentado por catálogo de entidades<strong>certificadas</strong> (P-06).</td>
+</tr>
+<tr>
+<td><code>Funcionario_Receptor_Entidad</code></td>
+<td>String</td>
+<td>R</td>
+<td>Director/trabajador social que recibe físicamente.</td>
+</tr>
+<tr>
+<td><code>Condiciones_Medicas_Ingreso</code></td>
+<td>Text Area</td>
+<td>R</td>
+<td>Contrasta estado de salud al ingreso vs. al rescate.</td>
+</tr>
+<tr>
+<td><code>Fecha_Vencimiento_Abrigo</code></td>
+<td>Datetime</td>
+<td>A/R</td>
+<td><strong>Autocalculado: fecha emisión + máx. 30 días.</strong> La ley prohíbe exceder el plazo sin intervención judicial.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Trigger de estado:</strong> → <code>En Entidad de Abrigo</code>.</li>
+<li><strong>Trigger temporal:</strong> programa alerta de dashboard para el <strong>día 25</strong> (ver Form 5).</li>
+</ul>
+<hr>
+<h3 id="3.4.-formulario-4-%E2%80%94-informe-de-evaluaci%C3%B3n-y-seguimiento-multidisciplinario" tabindex="-1">3.4. FORMULARIO 4 — Informe de Evaluación y Seguimiento Multidisciplinario</h3>
+<p><strong>Interfaz:</strong> Web · <strong>Escritura:</strong> Personal de Entidad de Atención (Trabajador Social, Psicólogo, Médico) · <strong>Lectura:</strong> Entidad, CPNNA, Juez · <strong>Bitácora clínica/psicológica.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Oblig.</th>
+<th>Validación / Regla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_Registro</code></td>
+<td>FK</td>
+<td>R</td>
+<td>Llave foránea al expediente.</td>
+</tr>
+<tr>
+<td><code>Tipo_Evaluacion</code></td>
+<td>Dropdown</td>
+<td>R</td>
+<td>{Médica, Psicológica, Trabajo Social, Legal}.</td>
+</tr>
+<tr>
+<td><code>Fecha_Evaluacion</code></td>
+<td>Datetime</td>
+<td>R</td>
+<td>No futura.</td>
+</tr>
+<tr>
+<td><code>Diagnostico_Observaciones</code></td>
+<td>Text Area</td>
+<td>R</td>
+<td>Documenta nombres recordados, dirección, condiciones médicas, etc.</td>
+</tr>
+<tr>
+<td><code>Adjuntos_Clinicos</code></td>
+<td>File Upload</td>
+<td>O</td>
+<td>Radiografías, récipes, informes forenses (acceso altamente restringido).</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Es un formulario <strong>N veces</strong> por expediente (histórico acumulativo, no sobrescribe).</li>
+<li><strong>Trigger de estado:</strong> → <code>En Evaluación</code>.</li>
+</ul>
+<hr>
+<h3 id="3.5.-formulario-5-%E2%80%94-remisi%C3%B3n-a-tribunal-de-protecci%C3%B3n-(escalamiento-judicial)" tabindex="-1">3.5. FORMULARIO 5 — Remisión a Tribunal de Protección (Escalamiento Judicial)</h3>
+<p><strong>Interfaz:</strong> Web · <strong>Escritura:</strong> Funcionario CPNNA · <strong>Lectura:</strong> Juez, CPNNA · <strong>Escalamiento por vencimiento de los 30 días.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Oblig.</th>
+<th>Validación / Regla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID_Registro</code></td>
+<td>FK</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>Tribunal_Asignado</code></td>
+<td>Dropdown</td>
+<td>R</td>
+<td>Tribunal de Protección de la jurisdicción.</td>
+</tr>
+<tr>
+<td><code>Motivo_Remision</code></td>
+<td>Dropdown</td>
+<td>R</td>
+<td>{Vencimiento lapso 30 días, Necesidad de Colocación Familiar, Presunción de Abandono/Orfandad Total}.</td>
+</tr>
+<tr>
+<td><code>Resumen_Actuaciones</code></td>
+<td>Text Area</td>
+<td>R</td>
+<td>Gestiones del CPNNA para localizar a la familia.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Lógica de negocio (trigger del sistema):</strong> alerta visual en dashboard del CPNNA el <strong>día 25</strong> de la medida de abrigo.</li>
+<li><strong>Acción de cierre:</strong> la potestad pasa al Tribunal; CPNNA queda en rol de acompañamiento; Juez asume control jurisdiccional.</li>
+<li><strong>Trigger de estado:</strong> → <code>A la orden del Tribunal</code>.</li>
+</ul>
+<hr>
+<h3 id="3.6.-formulario-6-%E2%80%94-acta-de-reunificaci%C3%B3n-familiar-%2F-cierre-de-caso" tabindex="-1">3.6. FORMULARIO 6 — Acta de Reunificación Familiar / Cierre de Caso</h3>
+<p><strong>Interfaz:</strong> Web · <strong>Escritura:</strong> Funcionario CPNNA o Juez · <strong>Lectura tras cierre:</strong> archivo inmutable (consulta) · <strong>Cierre exitoso de la cadena.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Oblig.</th>
+<th>Validación / Regla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Nombre_Familiar_Receptor</code></td>
+<td>String</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>Cedula_Familiar</code></td>
+<td>Alfanumérico</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>Parentesco_Comprobado</code></td>
+<td>Dropdown</td>
+<td>R</td>
+<td>{Madre, Padre, Abuelo/a, Tío/a, Hermano/a mayor} — hasta 4.º grado de consanguinidad.</td>
+</tr>
+<tr>
+<td><code>Metodo_Comprobacion_Filiacion</code></td>
+<td>Dropdown/Text</td>
+<td>R</td>
+<td>{Partida de Nacimiento, Prueba de ADN, Reconocimiento certificado por psicólogo}.</td>
+</tr>
+<tr>
+<td><code>Firma_Biometrica_Familiar</code></td>
+<td>Canvas</td>
+<td>R</td>
+<td>Asienta legalmente la recepción.</td>
+</tr>
+<tr>
+<td><code>Autoridad_Que_Entrega</code></td>
+<td>String + Firma</td>
+<td>R</td>
+<td>Juez o Consejero que autoriza la salida.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Acción de cierre:</strong> Status Maestro → <strong>"Caso Cerrado - Reunificado"</strong>. Todos los roles previos pierden acceso activo; el expediente queda en <strong>archivo inmutable</strong>.</li>
+</ul>
+<hr>
+<h2 id="4.-diagramas-de-flujo-de-datos-(dfd)" tabindex="-1">4. DIAGRAMAS DE FLUJO DE DATOS (DFD)</h2>
+<h3 id="4.1.-dfd-nivel-0-%E2%80%94-diagrama-de-contexto" tabindex="-1">4.1. DFD Nivel 0 — Diagrama de Contexto</h3>
+<div class="mermaid">flowchart LR
+    R([Rescatista / Voluntario])
+    C([Funcionario CPNNA])
+    E([Entidad de Atención])
+    J([Juez de Protección])
+    F([Familia de Origen])
+    A([Administrador TI])
+
+    SYS{{Plataforma de Cadena<br>de Custodia Digital NNA}}
+
+    R --&gt;|Ficha de hallazgo, foto, GPS| SYS
+    SYS --&gt;|Brazalete + QR, PDF acta| R
+    C --&gt;|Acta entrega, medida abrigo, remisión| SYS
+    SYS --&gt;|Expedientes jurisdicción, alertas D-25| C
+    E --&gt;|Informes multidisciplinarios| SYS
+    SYS --&gt;|Expedientes asignados| E
+    J --&gt;|Sentencias, medidas judiciales| SYS
+    SYS --&gt;|Acceso total histórico/auditoría| J
+    SYS --&gt;|Acta reunificación| F
+    A --&gt;|Gestión de cuentas y roles| SYS
+    SYS -.-&gt;|SIN acceso a datos NNA| A</div><p><img src="image/ERS-RequerimientosdeCapturadeDatos(Consolidado)/1782603369317.png" alt="1782603369317"></p>
+<h3 id="4.2.-dfd-nivel-1-%E2%80%94-procesos-principales-y-almacenes-de-datos" tabindex="-1">4.2. DFD Nivel 1 — Procesos principales y almacenes de datos</h3>
+<div class="mermaid">flowchart TD
+    R([Rescatista])
+    C([CPNNA])
+    E([Entidad Atención])
+    J([Juez])
+
+    P1[1.0 Registrar Hallazgo]
+    P2[2.0 Formalizar Entrega]
+    P3[3.0 Dictar Medida Abrigo]
+    P4[4.0 Evaluar y Seguir]
+    P5[5.0 Escalar a Tribunal]
+    P6[6.0 Reunificar / Cerrar]
+
+    D1[(D1 Expedientes NNA)]
+    D2[(D2 Fotos Encriptadas)]
+    D3[(D3 GPS Inmutable)]
+    D4[(D4 Actas y PDFs)]
+    D5[(D5 Informes Clínicos)]
+    D6[(D6 Pista de Auditoría)]
+
+    R --&gt; P1
+    P1 --&gt; D1
+    P1 --&gt; D2
+    P1 --&gt; D3
+    P1 --&gt;|Brazalete QR| R
+
+    C --&gt; P2
+    P2 --&gt; D1
+    P2 --&gt; D4
+    P2 --&gt;|Bloqueo Form 1| D1
+    P2 --&gt; D6
+
+    C --&gt; P3
+    P3 --&gt; D1
+    P3 --&gt;|Vencimiento +30d| D1
+
+    E --&gt; P4
+    P4 --&gt; D5
+    P4 --&gt; D1
+
+    C --&gt; P5
+    P5 --&gt; D1
+    P5 --&gt;|Alerta D-25| C
+    P5 --&gt; J
+
+    J --&gt; P6
+    C --&gt; P6
+    P6 --&gt; D1
+    P6 --&gt; D4
+    P6 --&gt;|Status: Caso Cerrado| D1
+
+    D6 -.-&gt;|Lectura auditoría| J</div><p><img src="image/ERS-RequerimientosdeCapturadeDatos(Consolidado)/1782603390831.png" alt="1782603390831"></p>
+<h3 id="4.3.-flujo-de-control-de-acceso-a-la-fotograf%C3%ADa-(dato-sensible)" tabindex="-1">4.3. Flujo de control de acceso a la fotografía (dato sensible)</h3>
+<div class="mermaid">flowchart TD
+    START([Solicitud de visualizar foto NNA]) --&gt; ROLE{Rol del usuario}
+    ROLE --&gt;|Rescatista| DENY1[Denegado: encriptada<br>tras guardar Art. 65/227]
+    ROLE --&gt;|Entidad Atención| PARTIAL[Acceso a foto<br>SÓLO identificación interna]
+    ROLE --&gt;|Administrador TI| DENY2[Denegado: Zero-Trust<br>ceguera de datos]
+    ROLE --&gt;|CPNNA Oficial| KEY{Posee llave<br>privada?}
+    ROLE --&gt;|Juez| KEY
+    KEY --&gt;|Sí| RENDER[Desencripta y renderiza<br>en pantalla]
+    KEY --&gt;|No| DENY3[Denegado]
+    RENDER --&gt; LOG[(Registra acceso<br>en pista de auditoría)]</div><p><img src="image/ERS-RequerimientosdeCapturadeDatos(Consolidado)/1782603417789.png" alt="1782603417789"></p>
+<h3 id="4.4.-diagrama-de-secuencia-%E2%80%94-traspaso-de-custodia-(form-1-%E2%86%92-form-2)" tabindex="-1">4.4. Diagrama de secuencia — Traspaso de custodia (Form 1 → Form 2)</h3>
+<div class="mermaid">sequenceDiagram
+    participant R as Rescatista
+    participant S as Sistema
+    participant C as Funcionario CPNNA
+    participant T as Testigo
+
+    R-&gt;&gt;S: Crea Form 1 (datos + foto + GPS auto)
+    S-&gt;&gt;S: Genera ID_Registro, encripta foto
+    S--&gt;&gt;R: Brazalete QR (texto plano, sin foto/GPS)
+    Note over R,S: Status: Encontrado → En Tránsito
+    R-&gt;&gt;S: Reporta a autoridad (&lt; 6h)
+    C-&gt;&gt;S: Busca expediente por ID_Registro
+    S--&gt;&gt;C: Datos Form 1 (foto desencriptada por rol)
+    C-&gt;&gt;S: Completa Form 2 (autoridad receptora)
+    R-&gt;&gt;S: Firma "Entregué Conforme"
+    C-&gt;&gt;S: Firma/Sello "Recibí Conforme"
+    T-&gt;&gt;S: Firma testigo
+    S-&gt;&gt;S: Genera PDF (SIN foto), bloquea Form 1
+    Note over S: Status: Bajo Protección del Estado
+    S--&gt;&gt;R: PDF acta (comprobante, sin foto). Acceso revocado.</div><hr>
+<h2 id="5.-matriz-de-roles-y-control-de-acceso-(rbac)" tabindex="-1">5. MATRIZ DE ROLES Y CONTROL DE ACCESO (RBAC)</h2>
+<h3 id="5.1.-roles-del-sistema" tabindex="-1">5.1. Roles del sistema</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Rol</th>
+<th>Descripción</th>
+<th>Acceso a Foto</th>
+<th>Acceso a GPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROL-1</td>
+<td><strong>Rescatista / Voluntario</strong></td>
+<td>Primer interviniente, depositario provisional. Acceso transitorio.</td>
+<td>Captura,<strong>no visualiza</strong></td>
+<td>Captura auto,<strong>no visualiza</strong></td>
+</tr>
+<tr>
+<td>ROL-2</td>
+<td><strong>Funcionario CPNNA / Protección Civil</strong></td>
+<td>Única autoridad receptora administrativa (Arts. 158/160).</td>
+<td><strong>Desencripta (llave)</strong></td>
+<td><strong>Visualiza</strong></td>
+</tr>
+<tr>
+<td>ROL-3</td>
+<td><strong>Representante de Entidad de Atención</strong></td>
+<td>Custodia institucional temporal (≤30 días).</td>
+<td>Foto (identificación interna)</td>
+<td><strong>No accede</strong></td>
+</tr>
+<tr>
+<td>ROL-4</td>
+<td><strong>Juez de Tribunal de Protección</strong></td>
+<td>Máxima autoridad judicial. Decide destino final.</td>
+<td><strong>Desencripta (llave)</strong></td>
+<td><strong>Visualiza</strong></td>
+</tr>
+<tr>
+<td>ROL-5</td>
+<td><strong>Administrador de Sistema / TI</strong></td>
+<td>Mantenimiento técnico y gestión de cuentas.</td>
+<td><strong>Ceguera total</strong></td>
+<td><strong>Ceguera total</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="5.2.-matriz-de-acceso-por-formulario-(c%3Dcrear%2C-r%3Dleer%2C-u%3Dactualizar%2C-d%3Dborrar)" tabindex="-1">5.2. Matriz de acceso por FORMULARIO (C=Crear, R=Leer, U=Actualizar, D=Borrar)</h3>
+<table>
+<thead>
+<tr>
+<th>Formulario</th>
+<th>ROL-1 Rescatista</th>
+<th>ROL-2 CPNNA</th>
+<th>ROL-3 Entidad</th>
+<th>ROL-4 Juez</th>
+<th>ROL-5 Admin TI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F1 — Ficha de Hallazgo</strong></td>
+<td>C, R¹</td>
+<td>R (jurisdicción)</td>
+<td>—</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>F2 — Acta de Entrega</strong></td>
+<td>R/Firma</td>
+<td>C, R, Firma</td>
+<td>—</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>F3 — Medida de Abrigo</strong></td>
+<td>—</td>
+<td>C, R</td>
+<td>R²</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>F4 — Evaluación/Seguimiento</strong></td>
+<td>—</td>
+<td>R</td>
+<td>C, R²</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>F5 — Remisión a Tribunal</strong></td>
+<td>—</td>
+<td>C, R</td>
+<td>—</td>
+<td>R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>F6 — Reunificación/Cierre</strong></td>
+<td>—</td>
+<td>C, R</td>
+<td>—</td>
+<td>C, R</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Pista de Auditoría</strong></td>
+<td>—</td>
+<td>R³</td>
+<td>R³</td>
+<td>R (total)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Gestión de cuentas/roles</strong></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>C, R, U</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>¹ Sólo expedientes propios y <em>activos</em> (no entregados). Pierde todo acceso al firmar F2.
+² Sólo expedientes <strong>asignados explícitamente</strong> a su institución.
+³ Lectura de auditoría limitada a sus propias actuaciones.
+<strong>Nota global:</strong> <code>D</code> (Borrado) = <strong>FALSE para todos los roles</strong> (P-03).</p>
+</blockquote>
+<h3 id="5.3.-matriz-de-acceso-a-datos-sensibles" tabindex="-1">5.3. Matriz de acceso a DATOS SENSIBLES</h3>
+<table>
+<thead>
+<tr>
+<th>Dato sensible</th>
+<th>ROL-1</th>
+<th>ROL-2</th>
+<th>ROL-3</th>
+<th>ROL-4</th>
+<th>ROL-5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nombre del NNA</td>
+<td>Escribe / no relee tras F2</td>
+<td>✅ Lee</td>
+<td>✅ Lee (asignados)</td>
+<td>✅ Lee</td>
+<td>❌ Ciego</td>
+</tr>
+<tr>
+<td>Fotografía NNA</td>
+<td>Captura / ❌ no ve</td>
+<td>✅ Desencripta</td>
+<td>⚠️ Sólo id. interna</td>
+<td>✅ Desencripta</td>
+<td>❌ Ciego</td>
+</tr>
+<tr>
+<td>GPS Hallazgo/Entrega</td>
+<td>Captura / ❌ no ve</td>
+<td>✅ Ve</td>
+<td>❌ No accede</td>
+<td>✅ Ve</td>
+<td>❌ Ciego</td>
+</tr>
+<tr>
+<td>Informes forenses/clínicos</td>
+<td>❌</td>
+<td>✅ Lee</td>
+<td>✅ Escribe/Lee</td>
+<td>✅ Lee</td>
+<td>❌ Ciego</td>
+</tr>
+<tr>
+<td>Edad / datos demográficos</td>
+<td>Escribe</td>
+<td>✅ Lee</td>
+<td>✅ Lee</td>
+<td>✅ Lee</td>
+<td>❌ Ciego</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5.4.-reglas-de-arquitectura-de-permisos-(resumen-para-el-equipo-t%C3%A9cnico)" tabindex="-1">5.4. Reglas de arquitectura de permisos (resumen para el equipo técnico)</h3>
+<ol>
+<li><strong>Delete = False</strong> para todos los roles. Registro inmutable (Documento Público).</li>
+<li><strong>Form 1 → Read-Only</strong> en el instante en que se firma Form 2.</li>
+<li><strong>BD fotográfica</strong> con <strong>llaves asimétricas</strong>: sólo credenciales de ROL-2 (CPNNA) y ROL-4 (Juez) poseen la clave privada para renderizar imágenes.</li>
+<li><strong>Correcciones del CPNNA</strong> no editan el original: se asientan como <strong>"Nota al Expediente"</strong> con audit trail (quién/cuándo/por qué).</li>
+<li><strong>Catálogo de Entidades:</strong> sólo entidades certificadas son seleccionables (bloqueo de traslados particulares).</li>
+</ol>
+<hr>
+<h2 id="6.-requerimientos-no-funcionales-de-la-captura" tabindex="-1">6. REQUERIMIENTOS NO FUNCIONALES DE LA CAPTURA</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Categoría</th>
+<th>Requerimiento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RNF-01</td>
+<td><strong>Operación offline</strong></td>
+<td>El Formulario 1 debe capturarse sin conectividad (zona de desastre) y sincronizar al recuperar señal; el GPS y timestamp se sellan localmente.</td>
+</tr>
+<tr>
+<td>RNF-02</td>
+<td><strong>Integridad</strong></td>
+<td>Validación en cliente y servidor; rechazo de registros con campos requeridos vacíos.</td>
+</tr>
+<tr>
+<td>RNF-03</td>
+<td><strong>Seguridad</strong></td>
+<td>Encriptación en reposo y tránsito (TLS); llaves asimétricas para fotos; control de acceso por rol en cada endpoint.</td>
+</tr>
+<tr>
+<td>RNF-04</td>
+<td><strong>Auditoría</strong></td>
+<td>Toda escritura genera entrada inalterable de auditoría (append-only).</td>
+</tr>
+<tr>
+<td>RNF-05</td>
+<td><strong>Disponibilidad</strong></td>
+<td>Tolerancia a fallos en sincronización; cola de reintentos para registros offline.</td>
+</tr>
+<tr>
+<td>RNF-06</td>
+<td><strong>Usabilidad</strong></td>
+<td>UI de alto contraste para el brazalete; advertencias legales visibles en captura de foto.</td>
+</tr>
+<tr>
+<td>RNF-07</td>
+<td><strong>Trazabilidad temporal</strong></td>
+<td>Cálculo automático del vencimiento de 30 días y disparo de alerta en el día 25.</td>
+</tr>
+<tr>
+<td>RNF-08</td>
+<td><strong>No repudio</strong></td>
+<td>Firmas biométricas/canvas vinculadas a identidad y timestamp.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7.-trazabilidad%3A-proceso-%E2%86%92-formulario-%E2%86%92-estado" tabindex="-1">7. TRAZABILIDAD: PROCESO → FORMULARIO → ESTADO</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Proceso</th>
+<th>Formulario</th>
+<th>Actor (escritura)</th>
+<th>Estado resultante</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Registro y Marcaje</td>
+<td>F1</td>
+<td>Rescatista</td>
+<td>Encontrado / En Tránsito</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Acta de Entrega</td>
+<td>F2</td>
+<td>CPNNA (+Rescatista+Testigo)</td>
+<td>Bajo Protección del Estado</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Medida de Abrigo</td>
+<td>F3</td>
+<td>CPNNA</td>
+<td>En Entidad de Abrigo</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Seguimiento</td>
+<td>F4</td>
+<td>Entidad de Atención</td>
+<td>En Evaluación</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Escalamiento (opcional)</td>
+<td>F5</td>
+<td>CPNNA</td>
+<td>A la orden del Tribunal</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Reunificación</td>
+<td>F6</td>
+<td>CPNNA o Juez</td>
+<td>Caso Cerrado (Reunificado/Adoptado)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><em>Documento consolidado a partir de: "Child Protection Custody Chain Technical Specifications" (V3.0), "Guardian Registry: Digital Chain of Custody for Minors" y "Legal Custody and Access Control Matrix for NNA Platforms". Cumplimiento LOPNNA.</em></p>
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    </body></html>

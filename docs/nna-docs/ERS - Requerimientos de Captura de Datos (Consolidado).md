@@ -63,8 +63,7 @@ stateDiagram-v2
     CasoCerrado --> [*] : Archivo inmutable
 ```
 
-![[Pasted image 20260627183332.png]]
----
+![1782605750390](image/ERS-RequerimientosdeCapturadeDatos(Consolidado)/1782605750390.png)
 
 ## 3. ESPECIFICACIÓN DETALLADA POR FORMULARIO
 
